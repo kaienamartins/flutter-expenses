@@ -104,8 +104,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    bool isLandcaspe =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final mediaQuery = MediaQuery.of(context);
+
+    bool isLandcaspe = mediaQuery.orientation == Orientation.landscape;
 
     final appBar = AppBar(
       title: Text(
@@ -117,19 +118,34 @@ class _MyHomePageState extends State<MyHomePage> {
       actions: <Widget>[
         Padding(
           padding: const EdgeInsets.only(right: 24),
-          child: IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () => _openTransactionFormModal(context),
-            visualDensity: VisualDensity.comfortable,
-            color: Colors.white,
+          child: Row(
+            children: [
+              if (isLandcaspe)
+                IconButton(
+                  icon: Icon(_showChart ? Icons.list : Icons.show_chart),
+                  onPressed: () {
+                    setState(() {
+                      _showChart = !_showChart;
+                    });
+                  },
+                  visualDensity: VisualDensity.comfortable,
+                  color: Colors.white,
+                ),
+              IconButton(
+                icon: const Icon(Icons.add),
+                onPressed: () => _openTransactionFormModal(context),
+                visualDensity: VisualDensity.comfortable,
+                color: Colors.white,
+              ),
+            ],
           ),
         ),
       ],
     );
 
-    final double availableHeight = MediaQuery.of(context).size.height -
+    final double availableHeight = mediaQuery.size.height -
         appBar.preferredSize.height -
-        MediaQuery.of(context).padding.top;
+        mediaQuery.padding.top;
 
     return Scaffold(
       appBar: appBar,
@@ -137,20 +153,20 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            if (isLandcaspe)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Exibir gráfico'),
-                  Switch(
-                      value: _showChart,
-                      onChanged: (value) {
-                        setState(() {
-                          _showChart = value;
-                        });
-                      }),
-                ],
-              ),
+            // if (isLandcaspe)
+            //   Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       const Text('Exibir gráfico'),
+            //       Switch(
+            //           value: _showChart,
+            //           onChanged: (value) {
+            //             setState(() {
+            //               _showChart = value;
+            //             });
+            //           }),
+            //     ],
+            //   ),
             if (_showChart || !isLandcaspe)
               SizedBox(
                   height: availableHeight * (isLandcaspe ? 0.7 : 0.30),
