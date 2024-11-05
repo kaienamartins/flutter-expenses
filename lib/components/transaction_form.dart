@@ -1,3 +1,5 @@
+import 'package:expenses/components/adaptative_button.dart';
+import 'package:expenses/components/adaptative_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -56,17 +58,17 @@ class _TransactionFormState extends State<TransactionForm> {
               left: 10,
               bottom: 10 + MediaQuery.of(context).viewInsets.bottom),
           child: Column(children: [
-            TextField(
+            AdaptativeTextfield(
               controller: _titleController,
               onSubmitted: (_) => _submitForm(),
-              decoration: const InputDecoration(labelText: 'Título'),
+              label: 'Título',
             ),
-            TextField(
+            AdaptativeTextfield(
+              label: 'Valor (R\$)',
               controller: _valueController,
               keyboardType:
                   const TextInputType.numberWithOptions(decimal: true),
               onSubmitted: (_) => _submitForm(),
-              decoration: const InputDecoration(labelText: 'Valor (R\$)'),
             ),
             SizedBox(
               height: 70,
@@ -94,18 +96,18 @@ class _TransactionFormState extends State<TransactionForm> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TextButton(
-                    onPressed: _submitForm,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        'Nova transação',
-                        style: TextStyle(
-                          color: Theme.of(context).textTheme.labelLarge?.color,
-                          backgroundColor: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                    )),
+                AdaptativeButton(
+                  label: 'Nova transação',
+                  onPressed: _submitForm,
+                ),
+                // ElevatedButton(
+                //   onPressed: _submitForm,
+                //   style: ElevatedButton.styleFrom(
+                //     foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                //     backgroundColor: Theme.of(context).colorScheme.primary,
+                //   ),
+                //   child: const Text('Nova transação'),
+                // ),
               ],
             )
           ]),

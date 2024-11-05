@@ -36,6 +36,10 @@ class ExpensesApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        buttonTheme: tema.buttonTheme.copyWith(
+          buttonColor: Colors.purple,
+          textTheme: ButtonTextTheme.primary,
+        ), 
         appBarTheme: AppBarTheme(
           titleTextStyle: const TextStyle(
             fontFamily: 'LeagueSpartan',
